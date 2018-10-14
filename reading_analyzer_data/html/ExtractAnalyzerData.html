@@ -1,0 +1,285 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Extracy Analyzer Data</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-04-23"><meta name="DC.source" content="ExtractAnalyzerData.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Extracy Analyzer Data</h1><!--introduction--><p>read csv data segment</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">folder and file name</a></li><li><a href="#2">read csv data</a></li><li><a href="#3">Segment by event codes</a></li><li><a href="#4">Plotting results</a></li></ul></div><h2 id="1">folder and file name</h2><pre class="codeinput">ExportFolder = <span class="string">'L:\Experiments\Matrix\MatrixV05\Data\EEG\Export - Yoni\'</span>;
+FileName = <span class="string">'MatrixV05_103_Raw Data Inspection'</span>;
+</pre><h2 id="2">read csv data</h2><p>Description of first code block</p><pre class="codeinput">datFile = [ExportFolder FileName <span class="string">'.dat'</span>];
+VMRKfile = [ExportFolder FileName <span class="string">'.vmrk'</span>];
+VHDRfile = [ExportFolder FileName <span class="string">'.vhdr'</span>];
+
+[allData] = read_analyzer_UnsegmentedData(datFile);
+[metaData] = read_vhdr_commoninfos2(VHDRfile);
+[channel_names] = cellstr(read_vhdr_channels(VHDRfile));
+[eventsCodesIndexes, artifactsIndexes]=read_markers_artifacts(VMRKfile);<span class="comment">%check that this is the row of Mk1 indeed</span>
+</pre><pre class="codeoutput">using default row of 12 to find number of channels in header file
+assuming number of channels = 7, please verify in header file / export node of analyzer
+loading file L:\Experiments\Matrix\MatrixV05\Data\EEG\Export - Yoni\MatrixV05_103_Raw Data Inspection.dat
+loading file took 0.00039996
+Reading L:\Experiments\Matrix\MatrixV05\Data\EEG\Export - Yoni\MatrixV05_103_Raw Data Inspection.vhdr header
+Number of Channels: 7
+</pre><h2 id="3">Segment by event codes</h2><pre class="codeinput">tmin = -600; <span class="comment">% min-max [ms]</span>
+tmax = 1500; <span class="comment">% min-max [ms]</span>
+SamplingInterval=metaData.SamplingInterval; <span class="comment">%[us]</span>
+srate = 1000/SamplingInterval;
+window = round(tmin*srate):round(tmax*srate);
+t = window / srate;
+
+<span class="comment">% [143 111 122 134];</span>
+<span class="comment">% relevantTrigs = 143;</span>
+
+conditional_trigs(eventsCodesIndexes, 122, 110, -2700, 120, -2700)
+<span class="comment">%  Lose Lose</span>
+<span class="comment">%  Stimulus    S122</span>
+<span class="comment">%  Advanced Boolean Expression:</span>
+<span class="comment">%  S110(-2700,0) or S120(-2700,0)  and not 99(-400,0)</span>
+
+trigs = conditional_trigs(eventsCodesIndexes, 122, 110, -2700, 120, -2700);
+
+[AVG, SEGS, REJ] = SegAndAvg(allData, trigs, window,<span class="string">'reject'</span>, artifactsIndexes);
+
+<span class="comment">% if you want to normalize data by a baseline row (electrode)</span>
+<span class="comment">% SEGS = bsxfun(@minus,SEGS,mean(SEGS(bsl,:,:),1));</span>
+</pre><pre class="codeoutput">
+ans =
+
+  Columns 1 through 6
+
+       20215       37653       52408       56555       64839       81642
+
+  Columns 7 through 12
+
+       85610       87617      112232      116379      126941      137632
+
+  Columns 13 through 18
+
+      156585      166942      177151      187816      196535      206728
+
+  Columns 19 through 24
+
+      210988      217085      219225      225502      239667      241807
+
+  Columns 25 through 30
+
+      248135      250270      254534      264784      279370      292134
+
+  Columns 31 through 36
+
+      298708      302926      305020      317538      332140      344822
+
+  Columns 37 through 42
+
+      351047      359428      380532      401769      414241      420569
+
+  Columns 43 through 48
+
+      422576      424572      434807      450197      467311      473541
+
+  Columns 49 through 54
+
+      475579      482025      484165      496995      515201      535936
+
+  Columns 55 through 60
+
+      538107      554362      558463      566941      569107      575517
+
+  Columns 61 through 66
+
+      583888      586053      602002      610132      612190      637016
+
+  Columns 67 through 72
+
+      643267      668154      672342      684211      703579      714299
+
+  Columns 73 through 78
+
+      720643      739366      741501      754141      770914      776182
+
+  Columns 79 through 84
+
+      780247      784374      796953      807367      819081      835520
+
+  Columns 85 through 90
+
+      852190      854325      861508      873980      880231      882694
+
+  Columns 91 through 93
+
+      886764      892816      894869
+
+SegAndAvg: 9 bad segments and 0 out-of-range segment were excluded out of 93 segments.
+</pre><h2 id="4">Plotting results</h2><pre class="codeinput">ch = <span class="string">'Fz'</span>;
+Fz = squeeze(SEGS(:,strcmp(channel_names, ch),:));
+
+ch = <span class="string">'Pz'</span>;
+Pz = squeeze(SEGS(:,strcmp(channel_names, ch),:));
+
+ch = <span class="string">'FCz'</span>;
+FCz = squeeze(SEGS(:,strcmp(channel_names, ch),:));
+
+ERPfigure
+<span class="comment">% t=0:1:size(data,1)-1;t=t/srate;t=t-0.1;</span>
+hold <span class="string">all</span>
+
+varplot(t,FCz);
+varplot(t,Fz);
+varplot(t,Pz);
+
+xlabel <span class="string">t[ms]</span>
+ylabel <span class="string">Power[Au]</span>
+title <span class="string">'ERP of FCz, Fz and Pz'</span>
+legend({<span class="string">'FCz'</span>,<span class="string">'Fz'</span>,<span class="string">'Pz'</span>})
+
+hold <span class="string">off</span>
+</pre><pre class="codeoutput">
+ans = 
+
+  Figure (1) with properties:
+
+      Number: 1
+        Name: ''
+       Color: [0.9400 0.9400 0.9400]
+    Position: [620 330 680 420]
+       Units: 'pixels'
+
+  Use GET to show all properties
+
+</pre><img vspace="5" hspace="5" src="ExtractAnalyzerData_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Extracy Analyzer Data
+% read csv data
+% segment
+
+%% folder and file name
+ExportFolder = 'L:\Experiments\Matrix\MatrixV05\Data\EEG\Export - Yoni\';
+FileName = 'MatrixV05_103_Raw Data Inspection';
+
+%% read csv data
+% Description of first code block
+
+datFile = [ExportFolder FileName '.dat'];
+VMRKfile = [ExportFolder FileName '.vmrk'];
+VHDRfile = [ExportFolder FileName '.vhdr'];
+
+[allData] = read_analyzer_UnsegmentedData(datFile);
+[metaData] = read_vhdr_commoninfos2(VHDRfile);
+[channel_names] = cellstr(read_vhdr_channels(VHDRfile));
+[eventsCodesIndexes, artifactsIndexes]=read_markers_artifacts(VMRKfile);%check that this is the row of Mk1 indeed
+    
+%% Segment by event codes
+tmin = -600; % min-max [ms]
+tmax = 1500; % min-max [ms]
+SamplingInterval=metaData.SamplingInterval; %[us]
+srate = 1000/SamplingInterval; 
+window = round(tmin*srate):round(tmax*srate);
+t = window / srate;
+
+% [143 111 122 134];
+% relevantTrigs = 143;
+
+conditional_trigs(eventsCodesIndexes, 122, 110, -2700, 120, -2700)
+%  Lose Lose
+%  Stimulus    S122
+%  Advanced Boolean Expression:
+%  S110(-2700,0) or S120(-2700,0)  and not 99(-400,0)
+
+trigs = conditional_trigs(eventsCodesIndexes, 122, 110, -2700, 120, -2700);
+
+[AVG, SEGS, REJ] = SegAndAvg(allData, trigs, window,'reject', artifactsIndexes);
+
+% if you want to normalize data by a baseline row (electrode)
+% SEGS = bsxfun(@minus,SEGS,mean(SEGS(bsl,:,:),1));
+
+%% Plotting results
+
+
+
+ch = 'Fz';
+Fz = squeeze(SEGS(:,strcmp(channel_names, ch),:));
+
+ch = 'Pz';
+Pz = squeeze(SEGS(:,strcmp(channel_names, ch),:));
+
+ch = 'FCz';
+FCz = squeeze(SEGS(:,strcmp(channel_names, ch),:));
+
+ERPfigure
+% t=0:1:size(data,1)-1;t=t/srate;t=t-0.1;
+hold all
+
+varplot(t,FCz);
+varplot(t,Fz);
+varplot(t,Pz);
+
+xlabel t[ms]
+ylabel Power[Au]
+title 'ERP of FCz, Fz and Pz'
+legend({'FCz','Fz','Pz'})
+
+hold off
+##### SOURCE END #####
+--></body></html>
