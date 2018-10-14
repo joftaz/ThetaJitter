@@ -11,18 +11,18 @@ function [PeakData, PeakNames,PeakPars] = feature_PEAK6to11(V, ttChannelValidity
 % OUTPUTS
 %    Data - nSpikes x nCh peak values
 %    Names - "Peak6to11: Ch"
-%
+%
 % ADR April 1998
 % version M1.0
 % RELEASED as part of MClust 2.0
-% See standard disclaimer in Contents.m
-
-TTData = V.data();
-[nSpikes, nCh, nSamp] = size(TTData);
-
-f = find(ttChannelValidity);
+% See standard disclaimer in Contents.m
 
-PeakData = zeros(nSpikes, length(f));
+TTData = V.data();
+[nSpikes, nCh, nSamp] = size(TTData);
+
+f = find(ttChannelValidity);
+
+PeakData = zeros(nSpikes, length(f));
 PeakNames = cell(length(f), 1);
 PeakPars = {};
 PeakData = squeeze(max(TTData(:, f, 6:11), [], 3));
