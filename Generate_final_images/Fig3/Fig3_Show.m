@@ -11,7 +11,7 @@ datas(:,:,:,1) = shiftdim(originals_freq_power,1);
 datas(:,:,:,2) = shiftdim(subtrials_freq_power,1);
 datas(:,:,:,3) = shiftdim(diff_original_subtracted_trials,1);
 
-colorbar_title = 'Power';
+colorbar_title = 'Power [dB]';
 subject_names = compose('j=%d', jitters);
 title_y = true;
 col_titles = {'Total power', 'Induced power', 'Evoked power'};
@@ -26,6 +26,11 @@ n_subjects = n_col*n_rows;
 
 ha = reshape(tight_subplot(n_rows ,n_col,gap,marg_h,marg_w), n_col, n_rows)';
 
+colors = cbrewer('div', 'RdBu', 64);
+% colors = cbrewer('seq', 'OrRd', 64);
+colors = flipud(colors); % puts red on top, blue at the bottom
+
+
 for ii = 1:n_rows
        
     % spectograms
@@ -36,17 +41,18 @@ for ii = 1:n_rows
 %        imagesc(t,1:size(data,2),data)%,'edgecolor','none');
         
         h = ha(ii,jj);
-        pcolor(h, args{:})%,'edgecolor','none');
-        caxis(h, [min(datas(:)) max(datas(:))]);
-
+        surf(h, args{:})%,'edgecolor','none');
+        caxis(h, [-3 3]);
+        % min(datas(:))
         view(h,0,90);
         axis(h,'tight');
         axis(h,'xy');
-        shading(h,'interp'); %colormap(parula(128));
+        shading(h,'interp'); 
+        colormap(parula(128));
         set(h,'YTick',[]);
         set(h,'yscale','log')
         set(h,'XTick',[]);
-        colormap(h,'jet')
+        colormap(h,colors);
     end
 
     % erp
@@ -114,6 +120,7 @@ text(0.5, 0, 'Time [ms]','HorizontalAlignment' ,'center','VerticalAlignment', 'b
 %  Trials with ERPs for different subjects for averaged over all conditions '\muV'
 c = colorbar(ha(1));
 % caxis([0,cmax])
+c.Ticks = [min(c.Ticks), mean(c.Ticks), max(c.Ticks)];
 title(c,colorbar_title);
 c.Position = [.92 0.3 0.02 0.5];
 %% 

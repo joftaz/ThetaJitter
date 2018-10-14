@@ -3,6 +3,7 @@ load results_BrainBonus2.mat
 recollect_data
 
 %% 
+
 plotType = 'surf';
 subj = 8; %(Maybe 7?)
 
@@ -16,7 +17,10 @@ has = tight_subplot(1,3,[],[],[0.1, 0.1]);
 axes(has(1))
 show_spectrum(img1, t, freqs, plotType,  'Total Power', false)
 % colormap(flipud(cbrewer('div','Spectral',128)))
-colormap(parula(128))
+colors = cbrewer('div', 'RdBu', 64);
+% colors = cbrewer('seq', 'OrRd', 64);
+colors = flipud(colors); % puts red on top, blue at the bottom
+colormap(colors)
 Ca = [-2, 2];
 caxis(Ca)
 % Ca = caxis;

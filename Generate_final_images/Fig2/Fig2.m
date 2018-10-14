@@ -94,7 +94,7 @@ diff_original_subtracted_trials = originals_freq_power - subtrials_freq_power;
 % 
 % title_subplots('ERP of different jitters')
 %% Time Freq Plot
-close all
+% close all
 figure;
 datas = zeros(size(originals_freq_power, 2), size(originals_freq_power, 3), size(originals_freq_power, 1), 3);
 datas(:,:,:,1) = shiftdim(originals_freq_power,1);
@@ -116,6 +116,10 @@ n_subjects = n_col*n_rows;
 
 ha = reshape(tight_subplot(n_rows ,n_col,gap,marg_h,marg_w), n_col, n_rows)';
 
+% colors = cbrewer('div', 'RdBu', 64);
+colors = cbrewer('seq', 'OrRd', 64);
+% colors = flipud(colors); % puts red on top, blue at the bottom
+        
 for ii = 1:n_rows
        
     % spectograms
@@ -126,7 +130,7 @@ for ii = 1:n_rows
 %        imagesc(t,1:size(data,2),data)%,'edgecolor','none');
         
         h = ha(ii,jj);
-        pcolor(h, args{:})%,'edgecolor','none');
+        surf(h, args{:})%,'edgecolor','none');
         caxis(h, [min(datas(:)) max(datas(:))]);
 
         view(h,0,90);
@@ -136,7 +140,7 @@ for ii = 1:n_rows
         set(h,'YTick',[]);
         set(h,'yscale','log')
         set(h,'XTick',[]);
-        colormap(h,'jet')
+        colormap(h,colors);
     end
 
     % erp
@@ -163,8 +167,8 @@ for ii = 1:n_rows
     caxis(h,[min(trials(:)), max(trials(:))])
     set(h,'XTick',[]);
 %     ylabel(h,'[Au]')
-    colormap(h,'jet')
     hold(h,'off')
+    colormap(parula)
 end
 
 
@@ -182,7 +186,7 @@ end
 %ylabel of whole fig
 if n_col > 1
     for ii=1:n_rows
-        set(ha(ii,1),'YTick',round(logspace(log10(min(freqs)), log10(max(freqs)), 6)))
+        set(ha(ii,1),'YTick',round(logspace(log10(min(freqs)), log10(max(freqs)), 3)))
         if title_y
             ylabel(ha(ii,1), subject_names(ii));
         end
@@ -203,10 +207,13 @@ text(0.5, 0, 'Time [ms]','HorizontalAlignment' ,'center','VerticalAlignment', 'b
 %  Trials with ERPs for different subjects for averaged over all conditions '\muV'
 c = colorbar(ha(1));
 % caxis([0,cmax])
+
+
 title(c,colorbar_title);
 c.Position = [.92 0.3 0.02 0.5];
+c.Ticks = [min(c.Ticks), mean(c.Ticks), max(c.Ticks)];
 
-%%
+%% Save figure
 path = fileparts(mfilename('fullpath'));
 savefig([path '/' 'Fig2.fig'])
 saveas(gcf, [path '/' 'Fig2.png'])
