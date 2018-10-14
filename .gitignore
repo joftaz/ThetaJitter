@@ -31,4 +31,4 @@ codegen/
 octave-workspace
 
 # Google Drive
-desktop.ini
+**/desktop.ini
