@@ -20,26 +20,32 @@ baseN2 = (n1-n2)*2;
 
 %% show spectrum
 figure;
+% Enlarge figure to full screen.
+% set(gcf, 'units','inch', 'OuterPosition', [4,4, 2.5, 2.5]);
+subplot(3,3,5);
 show_spectrum(p, t, freqs, 'surf', '', false)
 
 axis square;
  
 % add the colorbar, make it prettier
-% subplot(3,3,5);
+
+ax = gca;
+axpos = ax.Position;
+
 handles = colorbar;
 handles.TickDirection = 'out';
 handles.Box = 'off';
 handles.Label.String = 'Power [Au]';
 handles.Ticks = [0,0.04];
+
 % this looks okay, but the colorbar is very wide. Let's change that!
 % get original axes
-axpos = get(gca, 'Position');
-cpos = handles.Position;
-cpos(3) = 0.5*cpos(3);
-handles.Position = cpos;
-
 % restore axis pos
-set(gca, 'position', axpos);
+ax.Position = axpos;
+
+cpos = handles.Position;
+cpos(3) = cpos(3)/2;
+set(handles,'Position',cpos);
  
 hold on
 yyaxis right
