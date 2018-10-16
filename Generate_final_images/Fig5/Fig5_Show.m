@@ -3,9 +3,8 @@ load results_BrainBonus2.mat
 recollect_data
 
 %% 
-
 plotType = 'surf';
-subj = 8; %(Maybe 7?)
+% subj = 5; %(Maybe 7?)
 
 img1 = mean(total_powers(:,u,:,subj),3);
 img2 = mean(sub_powers(:,u,:,subj),3);
