@@ -10,7 +10,8 @@ tot_diff_n = tot_diff./base_factor;
 
 % plt_colors = {'b','g','r','c'};
 figure
-    
+
+subplot(2,2,4)
 % H(1) = stdshade(tot_erp_n, 0.2, 'b', ratio_jitters, 3);
 hold on
 % H(2) = stdshade(tot_orig_n, 0.2, 'g', ratio_jitters, 3);
