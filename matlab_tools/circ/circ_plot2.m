@@ -132,9 +132,10 @@ switch format
     pax = gca;
     pax.ThetaAxisUnits = 'radians';
     pax.ThetaTick = [0, pi/2, pi, 3/2*pi];
-    pax.ThetaTickLabels = {'0','\pi/2','±\pi','-\pi/2'};
+    pax.ThetaTickLabels = {'0','$\pi/2$','$\pm\pi$','$-\pi/2$'};
     pax.RTickLabel = [];
-
+    pax.RColor = 'k';
+    pax.GridAlpha = 1;
     grid off
 
 
@@ -152,7 +153,7 @@ switch format
     end
     hold off;
 
-    set(gca,'box','off')
+    set(gca,'box','on')
 
   case 'pretty'
     % plot in 'pretty style'
