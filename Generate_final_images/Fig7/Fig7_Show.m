@@ -3,8 +3,10 @@ fig_path = fileparts(mfilename('fullpath'));
 load([fig_path '/' 'Fig7.mat']);
 
 %% plot compasses
-subj = 8;
-[~,t_ind_subj] = max(circ_r(theta_phases_subjects{subj},[],[],2));
+subj = 16;
+mask = t_min_max(1)<times & times<t_min_max(2);
+
+[~,t_ind_subj] = max(mean(theta_phases_r(:,:,subj),2).*mask');
 subj_theta_phases = cell2mat(cellfun(@(X) X(t_ind_subj,:),theta_phases_subjects(subj), 'UniformOutput' ,false));
 % subj_theta_phases = theta_phases_subjects{subj};
 [thetahat, kappa] = circ_vmpar(subj_theta_phases);
@@ -17,6 +19,7 @@ subj_theta_phases = cell2mat(cellfun(@(X) X(t_ind_subj,:),theta_phases_subjects(
 % title([int2str(times(t_ind_subj))])
 
 figure
+subplot(1,2,1)
 polarhistogram(subj_theta_phases, 20,'Normalization','pdf',...
     'FaceAlpha',0, 'DisplayStyle','stairs');
 pax = gca;
@@ -24,6 +27,12 @@ pax.ThetaAxisUnits = 'radians';
 hold on
 polarplot(a,p)
 
+subplot(1,2,2)
+varplot(t,squeeze(theta_phases_r(u,:,subj)) )
+xlabel Time
+xunits ms %replace
+axis square
+ylabel 'Phase choherence'
 
 freq_mean = sqrt(freq_max*freq_min);
 jitter_estimate = 1/sqrt(kappa) * pi/2 / freq_mean / SamplingInterval * 1e6;

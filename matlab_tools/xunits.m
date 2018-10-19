@@ -8,12 +8,22 @@ if ishandle(varargin{1})
 else
     h = gca;
 end
-units = varargin{1};
-text_args = [{1,-0.1, units, 'units', 'normalized','HorizontalAlignment','right','clipping','off'}, varargin{2:end}];
-if nargout > 0
-    t = text(h,text_args{:});
+if length(varargin) > 1 && strcmp(varargin{2},'replace')
+    replace = true;
 else
-    text(h,text_args{:});
+    replace = false;
+end
+units = varargin{1};
+
+if ~replace
+    text_args = [{1,-0.1, units, 'units', 'normalized','HorizontalAlignment','right','clipping','off'}, varargin{2:end}];
+    if nargout > 0
+        t = text(h,text_args{:});
+    else
+        text(h,text_args{:});
+    end
+else
+    h.XTickLabel{end} = units;
 end
 
 
