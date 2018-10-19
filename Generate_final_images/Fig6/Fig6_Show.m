@@ -6,9 +6,13 @@ load([fig_path '/' 'Fig6.mat']);
 figure;
 t0s = -200:50:550;
 default_colors = get(groot,'factoryAxesColorOrder');
-c1 = rgb('blue');
-c2 = rgb('green');
-c3 = rgb('red');
+colors = cbrewer('qual', 'Set1', 3);
+c1 = colors(2,:);
+c2 = colors(3,:);
+c3 = colors(1,:);
+% c1 = rgb('blue');
+% c2 = rgb('green');
+% c3 = rgb('red');
 
 texts_pos = zeros(length(t0s),2);
 
