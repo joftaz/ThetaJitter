@@ -30,7 +30,7 @@ for ii = 1:n_subjects
 %     imagesc(t,1:size(data,2),data)%,'edgecolor','none');
     args = {t,freqs,data };
 
-    pcolor(args{:})%,'edgecolor','none');
+    surf(args{:})%,'edgecolor','none');
     caxis([min(datas(:)) max(datas(:))]);
     
     view(0,90);
