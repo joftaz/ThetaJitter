@@ -3,10 +3,12 @@ fig_path = fileparts(mfilename('fullpath'));
 load([fig_path '/' 'Fig7.mat']);
 
 %% plot compasses
-subj = 16;
+subj = 8;
+t_min_max = [-0,600];
 mask = t_min_max(1)<times & times<t_min_max(2);
 
 [~,t_ind_subj] = max(mean(theta_phases_r(:,:,subj),2).*mask');
+% t_ind_subj = 100;
 subj_theta_phases = cell2mat(cellfun(@(X) X(t_ind_subj,:),theta_phases_subjects(subj), 'UniformOutput' ,false));
 % subj_theta_phases = theta_phases_subjects{subj};
 [thetahat, kappa] = circ_vmpar(subj_theta_phases);
@@ -28,14 +30,19 @@ hold on
 polarplot(a,p)
 
 subplot(1,2,2)
-varplot(t,squeeze(theta_phases_r(u,:,subj)) )
+%varplot(t,squeeze(mean(theta_phases_r(u,:,:),2)))
+plot(t,squeeze(mean(theta_phases_r(u,:,subj),2)))
+axis tight
 xlabel Time
-xunits ms %replace
 axis square
 ylabel 'Phase choherence'
 
-freq_mean = sqrt(freq_max*freq_min);
-jitter_estimate = 1/sqrt(kappa) * pi/2 / freq_mean / SamplingInterval * 1e6;
+ylim([0 0.6])
+xunits ms %replace
+
+freq_mean = mean([freq_max,freq_min]);
+jitter_estimate = sqrt(1-besseli(1,kappa)/besseli(0,kappa)) / freq_mean * 1e3;
+% jitter_estimate = circ_var(subj_theta_phases,[],[],2) * pi/2/freq_mean * 1e3;
 
 fprintf('jitter estimate is %.0f [ms] at t ~ %.0f [ms]\n', jitter_estimate , times(t_ind_subj))
 
