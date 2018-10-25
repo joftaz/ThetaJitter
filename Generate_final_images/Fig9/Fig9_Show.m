@@ -18,7 +18,7 @@ title 'ERP'
 %% Theta
 freq_inds = 4.5<freqs & freqs<8; % freqs(11)=6.4622Hz.
 subplot(2,2,2)
-show_perm_results(squeeze(sub_powers(:,:,:,:)),inds_left,inds_right,u,t,freqs,freq_inds,[],true)
+show_perm_results(squeeze(total_powers(:,:,:,:)),inds_left,inds_right,u,t,freqs,freq_inds,[],true)
 
 axis square
 axis tight
@@ -29,7 +29,7 @@ title 'Theta Power'
 
 %% power
 subplot(2,2,3)
-show_perm_results(squeeze(sub_powers(:,:,:,:)),inds_left,inds_right,u,t,freqs,[],[],true)
+show_perm_results(squeeze(total_powers(:,:,:,:)),inds_left,inds_right,u,t,freqs,[],[],true)
 
 axis square
 axis tight
