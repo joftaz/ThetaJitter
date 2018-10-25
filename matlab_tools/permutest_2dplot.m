@@ -45,8 +45,7 @@ end
 trial_mean = squeeze(mean(trial_group_1,3));
 hold on
 pcolor(t,freqs,trial_mean);
-
-
+box off
 shading interp
 view(0,90);
 colormap jet

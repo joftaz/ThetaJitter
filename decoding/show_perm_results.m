@@ -1,6 +1,7 @@
-function show_perm_results(data, left_inds, right_inds, u, t, freqs, opt_freq, var_colors)
+function show_perm_results(data, left_inds, right_inds, u, t, freqs, opt_freq, var_colors, two_sided)
 
 set_default('var_colors', []);
+set_default('two_sided', false);
 
 if left_inds<0
     left_inds = find(1:4 ~= -left_inds);
@@ -41,14 +42,13 @@ p_thresh = 0.05;
 if ndims(trial_g_1) == 3
 
 %     [t_value_matrix, permutation_distribution_max, permutation_distribution_min] = permutest_max(trial_g_1, trial_g_2, true, 0.05, 10^4, false, inf);
-    [clusters, p_values, t_sums, permutation_distribution ] = permutest(trial_g_1, trial_g_2, true, p_thresh, 10^4, false, inf);
+    [clusters, p_values, t_sums, permutation_distribution ] = permutest(trial_g_1, trial_g_2, true, p_thresh, 10^4, two_sided, inf);
 
     trial_m = mean(trial_g,3);
    
-    figure;
+%     figure;
     hold on
     contourf(t,freqs,trial_m,500,'LineStyle','none');
-    colormap jet
     colorbar
     caxis([min(trial_m(:)),max(trial_m(:))])
     set(gca,'yscale','log')
@@ -68,6 +68,6 @@ if ndims(trial_g_1) == 3
     end
     
 else
-    permutest_plot(trial_g_1, trial_g_2, true, 0.05, 10^4, false, inf, t, [], var_colors);
+    permutest_plot(trial_g_1, trial_g_2, true, 0.05, 10^4, two_sided, inf, t, [], var_colors);
 end
 
