@@ -8,7 +8,7 @@ fs = 1/dt;
 len_sample = floor((tmax-tmin)*fs);
 t = linspace(tmin, tmax, len_sample);
 N2_width = 200;
-jitters = [0 50:50:260];
+jitters = [0 40:40:210];
 num_trails = 100;
 
 freqs = logspace(log10(2), log10(60), 30);
