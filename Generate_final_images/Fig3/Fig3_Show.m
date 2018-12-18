@@ -20,7 +20,7 @@ marg_h = 0.1;
 marg_w = 0.15;
 
 
-n_col = 3;
+n_col = 4;
 n_rows = length(jitters);
 n_subjects = n_col*n_rows;
 
@@ -67,7 +67,7 @@ for ii = 1:n_rows
     yyaxis(h,'left')
     
     %trials   
-%     h=ha(ii,4);
+    delete(ha(ii,4))
 %     imagesc(h,t(u), [-1, 1], squeeze(trials(ii,:,u)));
 %     set(h,'YTick',[]);
 %     hold(h,'on')
@@ -90,7 +90,7 @@ for jj=1:length(col_titles)
 end
 
 %xlabel of whole fig
-for jj=1:n_col
+for jj=1:length(col_titles)
     set(ha(end,jj),'XTickMode', 'auto')
 end
 
@@ -109,12 +109,12 @@ end
 % hy
 axes('Position',[0 0 1 1],'Xlim',[0 1],'Ylim',[0 1],'Box','off','Visible','off','Units','normalized', 'clipping' , 'off');
 if n_col > 1
-    text(0.04, 0.5,'Frequncy [Hz]','VerticalAlignment' ,'middle','HorizontalAlignment', 'center', 'Rotation', 90);    
+    text(0.06, 0.5,'Frequncy [Hz]','VerticalAlignment' ,'middle','HorizontalAlignment', 'center', 'Rotation', 90);    
 else
     text(0.04, 0.5,'Subject','VerticalAlignment' ,'middle','HorizontalAlignment', 'center', 'Rotation', 90);    
 end
 
-text(0.5, 0, 'Time [ms]','HorizontalAlignment' ,'center','VerticalAlignment', 'bottom');
+text(0.41, 0.02, 'Time [ms]','HorizontalAlignment' ,'center','VerticalAlignment', 'bottom');
     
 
 %  Trials with ERPs for different subjects for averaged over all conditions '\muV'
@@ -122,7 +122,7 @@ c = colorbar(ha(1));
 % caxis([0,cmax])
 c.Ticks = [min(c.Ticks), mean(c.Ticks), max(c.Ticks)];
 title(c,colorbar_title);
-c.Position = [.92 0.3 0.02 0.5];
+c.Position = [.71 0.3 0.02 0.5];
 %% 
 fig_path = fileparts(mfilename('fullpath'));
 savefig([fig_path '/' 'Fig3.fig'])
