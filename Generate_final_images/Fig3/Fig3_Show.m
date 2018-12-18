@@ -14,7 +14,8 @@ datas(:,:,:,3) = shiftdim(diff_original_subtracted_trials,1);
 colorbar_title = 'Power [dB]';
 subject_names = compose('j=%d', jitters);
 title_y = true;
-col_titles = {'Total power', 'Induced power', 'Evoked power'};
+% col_titles = {'Total power', 'Induced power', 'Evoked power'};
+col_titles = {'Total power', 'Induced power', 'Evoked power', 'Trials'};
 gap = 0.05;
 marg_h = 0.1;
 marg_w = 0.15;
@@ -67,20 +68,22 @@ for ii = 1:n_rows
     yyaxis(h,'left')
     
     %trials   
-    delete(ha(ii,4))
-%     imagesc(h,t(u), [-1, 1], squeeze(trials(ii,:,u)));
-%     set(h,'YTick',[]);
-%     hold(h,'on')
-%     yyaxis(h,'right');
-%     plot(h, t(u), erp/max(erp), 'linewidth',1,'color','k');
-% %    plot(h, t, baseN2 , 'b-.', 'linewidth',1)
-%     
-%     axis(h,'xy')
-%     caxis(h,[min(trials(:)), max(trials(:))])
-%     set(h,'XTick',[]);
-% %     ylabel(h,'[Au]')
-%     colormap(h,'jet')
-%     hold(h,'off')
+%     delete(ha(ii,4))
+    h=ha(ii,4);
+    imagesc(h,t(u), [-1, 1], squeeze(trials(ii,:,u)));
+    set(h,'YTick',[]);
+    hold(h,'on')
+    yyaxis(h,'right');
+    plot(h, t(u), erps(ii,u)/max(erps(1,u)), 'linewidth',2,'color','k');
+    set(h,'YLim',[-1 1]);
+%    plot(h, t, baseN2 , 'b-.', 'linewidth',1)
+    
+    axis(h,'xy')
+    caxis(h,[min(trials(:)), max(trials(:))])
+    set(h,'XTick',[]);
+%     ylabel(h,'[Au]')
+    colormap(h,'jet')
+    hold(h,'off')
 end
 
 
@@ -122,7 +125,11 @@ c = colorbar(ha(1));
 % caxis([0,cmax])
 c.Ticks = [min(c.Ticks), mean(c.Ticks), max(c.Ticks)];
 title(c,colorbar_title);
-c.Position = [.71 0.3 0.02 0.5];
+if length(col_titles) == 4
+    c.Position = [.92 0.3 0.02 0.5];
+else
+    c.Position = [.71 0.3 0.02 0.5];
+end
 %% 
 fig_path = fileparts(mfilename('fullpath'));
 savefig([fig_path '/' 'Fig3.fig'])

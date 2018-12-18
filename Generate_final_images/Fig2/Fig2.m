@@ -93,6 +93,7 @@ diff_original_subtracted_trials = originals_freq_power - subtrials_freq_power;
 % set(ax, 'XTickMode', 'auto');
 % 
 % title_subplots('ERP of different jitters')
+
 %% Time Freq Plot
 % close all
 figure;
@@ -118,6 +119,7 @@ ha = reshape(tight_subplot(n_rows ,n_col,gap,marg_h,marg_w), n_col, n_rows)';
 
 % colors = cbrewer('div', 'RdBu', 64);
 colors = cbrewer('seq', 'OrRd', 64);
+qulitive_colors = cbrewer('qual','Set1',8);
 % colors = flipud(colors); % puts red on top, blue at the bottom
         
 for ii = 1:n_rows
@@ -160,9 +162,9 @@ for ii = 1:n_rows
     set(h,'YTick',[]);
     hold(h,'on')
     yyaxis(h,'right');
-    plot(h, t, erps(ii,:), 'linewidth',1,'color','k');
-    plot(h, t, baseN2 , 'b-.', 'linewidth',1)
-    
+    plot(h, t, baseN2 , '-','linewidth',1,'color',qulitive_colors(1,:))
+    plot(h, t, erps(ii,:),'-','linewidth',1,'color','k');
+    set(h,'YLim',[-1 1]);
     axis(h,'xy')
     caxis(h,[min(trials(:)), max(trials(:))])
     set(h,'XTick',[]);

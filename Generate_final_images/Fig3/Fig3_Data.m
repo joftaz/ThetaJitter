@@ -27,9 +27,10 @@ u = t > -200 & t < 1000;
 erps = zeros(length(jitters), length(t));
 trials = zeros(length(jitters), num_trails, length(t));
 sub_trials = trials ;
-for ii = 1:length(jitters)
-    noise.jitter = noise.jitters(ii) * fs;
-    trials(ii,:,:) = N200matWithNoise(t, num_trails, noise);
+parfor ii = 1:length(jitters)
+    noise2 = noise;
+    noise2.jitter = noise.jitters(ii) * fs;
+    trials(ii,:,:) = N200matWithNoise(t, num_trails, noise2);
     erps(ii,:) = mean(trials(ii,:,:));
     sub_trials(ii,:,:) = bsxfun(@minus, squeeze(trials(ii,:,:)), erps(ii,:));
 end
@@ -49,7 +50,7 @@ else
     erps_freq_power = shiftdim(erps_freq_power,2); %channel-freq-time
 end
 
-for ii = 1:length(jitters)
+parfor ii = 1:length(jitters)
     [amp,ph] = getPowerSpectra(squeeze(trials(ii,:,:)),dt,freqs);   
     bl_values = mean(mean(amp(:, bl_range, :),3),2);
     originals_freq_power(ii,:,:) = 10 * log10(bsxfun(@rdivide,mean(amp,3),bl_values));
@@ -64,5 +65,5 @@ end
 
 %% save the data
 fig_path = fileparts(mfilename('fullpath'));
-save([fig_path '/' 'jitter_and_noise.mat'], 'originals_freq_power', 'subtrials_freq_power' , 'jitters', 'erps' ,'freqs', 'u', 't')
+save([fig_path '/' 'jitter_and_noise.mat'], 'originals_freq_power', 'subtrials_freq_power' , 'jitters', 'erps' ,'freqs', 'u', 't', 'trials')
 
