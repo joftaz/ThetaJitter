@@ -21,10 +21,13 @@ ci_alpha = 0.95;
 ci = @(data)(output(@()ttest(data,0,'alpha',1-ci_alpha),3));
 
 hold on
+
+colors = cbrewer('qual', 'Set1', 3);
+
 % H(1) = shadedErrorBar(ratio_jitters, tot_erp_n, {@mean, @std}, {'-b', 'LineWidth', 1.5}, 1);
-H(2) = shadedErrorBar(ratio_jitters, tot_orig_n, {@mean, ci, true}, {'-g', 'LineWidth', 1.5}, 1);
-H(3) = shadedErrorBar(ratio_jitters, tot_sub_n, {@mean, ci, true}, {'-r', 'LineWidth', 1.5}, 1);
-H(4) = shadedErrorBar(ratio_jitters, tot_diff_n, {@mean, ci, true}, {'-c', 'LineWidth', 1.5}, 1);
+H(2) = shadedErrorBar(ratio_jitters, tot_orig_n, {@mean, ci, true}, {'-', 'Color',colors(1,:),'LineWidth', 1.5}, 1);
+H(3) = shadedErrorBar(ratio_jitters, tot_sub_n, {@mean, ci, true}, {'-', 'Color',colors(2,:), 'LineWidth', 1.5}, 1);
+H(4) = shadedErrorBar(ratio_jitters, tot_diff_n, {@mean, ci, true}, {'-', 'Color',colors(3 ,:), 'LineWidth', 1.5}, 1);
 
 % title 'total spectral power for different 12 repetitions with 100 trials each'
 % title 'total spectral power for different jitter sizes'
