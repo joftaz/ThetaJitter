@@ -57,15 +57,15 @@ for ii = 1:n_rows
     end
 
     % erp
-    h=ha(ii,3);
-    erp = erps(ii,u);
-    yyaxis(h,'right')
-    mx = max(erp);
-    mn = min(erp);
-    erp = ((erp - mn)/(mx-mn))*(size(data,2)-1) + 1;
-    plot(h,t(u), erp, 'linewidth',1,'color','k');
-    set(h,'YTick',[]);
-    yyaxis(h,'left')
+%     h=ha(ii,3);
+%     erp = erps(ii,u);
+%     yyaxis(h,'right')
+%     mx = max(erp);
+%     mn = min(erp);
+%     erp = ((erp - mn)/(mx-mn))*(size(data,2)-1) + 1;
+%     plot(h,t(u), erp, 'linewidth',1,'color','k');
+%     set(h,'YTick',[]);
+%     yyaxis(h,'left')
     
     %trials   
 %     delete(ha(ii,4))
@@ -102,6 +102,8 @@ end
 if n_col > 1
     for ii=1:n_rows
         set(ha(ii,1),'YTick',round(logspace(log10(min(freqs)), log10(max(freqs)), 6)))
+        set(ha(ii,1),'YMinorTick','off')
+%         set(ha(ii,1),'YTickLabel',round(logspace(log10(min(freqs)), log10(max(freqs)), 5)))
         if title_y
             ylabel(ha(ii,1), subject_names(ii));
         end
@@ -117,7 +119,7 @@ else
     text(0.04, 0.5,'Subject','VerticalAlignment' ,'middle','HorizontalAlignment', 'center', 'Rotation', 90);    
 end
 
-text(0.41, 0.02, 'Time [ms]','HorizontalAlignment' ,'center','VerticalAlignment', 'bottom');
+text(0.5, 0.02, 'Time [ms]','HorizontalAlignment' ,'center','VerticalAlignment', 'bottom');
     
 
 %  Trials with ERPs for different subjects for averaged over all conditions '\muV'

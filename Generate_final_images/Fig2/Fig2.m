@@ -146,15 +146,15 @@ for ii = 1:n_rows
     end
 
     % erp
-    h=ha(ii,3);
-    erp = erps(ii,:);
-    yyaxis(h,'right')
-    mx = max(erp);
-    mn = min(erp);
-    erp = ((erp - mn)/(mx-mn))*(size(data,2)-1) + 1;
-    plot(h,t, erp, 'linewidth',1,'color','k');
-    set(h,'YTick',[]);
-    yyaxis(h,'left')
+%     h=ha(ii,3);
+%     erp = erps(ii,:);
+%     yyaxis(h,'right')
+%     mx = max(erp);
+%     mn = min(erp);
+%     erp = ((erp - mn)/(mx-mn))*(size(data,2)-1) + 1;
+%     plot(h,t, erp, 'linewidth',1,'color','k');
+%     set(h,'YTick',[]);
+%     yyaxis(h,'left')
     
     %trials   
     h=ha(ii,4);
@@ -188,7 +188,8 @@ end
 %ylabel of whole fig
 if n_col > 1
     for ii=1:n_rows
-        set(ha(ii,1),'YTick',round(logspace(log10(min(freqs)), log10(max(freqs)), 3)))
+        set(ha(ii,1),'YTick',round(logspace(log10(min(freqs)), log10(max(freqs)), 6)))
+        set(ha(ii,1),'YMinorTick','off')
         if title_y
             ylabel(ha(ii,1), subject_names(ii));
         end
