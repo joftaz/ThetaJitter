@@ -82,7 +82,7 @@ if ~isempty(clusters)
         for ii = 1:length(sig_clusters)
             m1clust = m1(clusters{sig_clusters(ii)});
             m2clust = m2(clusters{sig_clusters(ii)});
-            patch(t([clusters{sig_clusters(ii)} clusters{sig_clusters(ii)}(end:-1:1)]),[m1clust' m2clust(end:-1:1)'],ii,'facealpha',0.5);
+            patch(t([clusters{sig_clusters(ii)} clusters{sig_clusters(ii)}(end:-1:1)]),[m1clust' m2clust(end:-1:1)'],[.4,.4,.4],'facealpha',0.5);
         end
         for ii = 1:length(nonsig_clusters)
             m1clust = m1(clusters{nonsig_clusters(ii)});
