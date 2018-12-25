@@ -10,6 +10,7 @@ subj_ind = 8;
 result = results{subj_ind};
 trials = result.trials;
 trials = bsxfun(@minus, trials, mean(trials,1));
+original_erp = mean(trials,3);
 
 mask = times > t_min & times < t_max;
 
@@ -37,8 +38,5 @@ sub_power = norm_power_bl_range(sub_power, bl_range);
 
 %% save data
 
-colors = cbrewer('div', 'RdBu', 64);
-colors = flipud(colors); % puts red on top, blue at the bottom
-colormap(colors);
 fig_path = fileparts(mfilename('fullpath'));
-save([fig_path '/' 'Fig8.mat'], 't', 'freqs','u', 'resampled_power','sub_power','resampled_power','aligned_power','sub_aligned_power')
+save([fig_path '/' 'Fig8.mat'], 't', 'freqs','u', 'resampled_power','sub_power','resampled_power','aligned_power','sub_aligned_power','aligned_erp','original_erp');
