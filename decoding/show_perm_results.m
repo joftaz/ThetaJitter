@@ -1,7 +1,8 @@
-function show_perm_results(data, left_inds, right_inds, u, t, freqs, opt_freq, var_colors, two_sided)
+function show_perm_results(data, left_inds, right_inds, u, t, freqs, opt_freq, var_colors, two_sided,n)
 
 set_default('var_colors', []);
 set_default('two_sided', false);
+set_default('n', 1e4);
 
 if left_inds<0
     left_inds = find(1:4 ~= -left_inds);
@@ -41,8 +42,8 @@ p_thresh = 0.05;
 
 if ndims(trial_g_1) == 3
 
-%     [t_value_matrix, permutation_distribution_max, permutation_distribution_min] = permutest_max(trial_g_1, trial_g_2, true, 0.05, 10^4, false, inf);
-    [clusters, p_values, t_sums, permutation_distribution ] = permutest(trial_g_1, trial_g_2, true, p_thresh, 10^4, two_sided, inf);
+%     [t_value_matrix, permutation_distribution_max, permutation_distribution_min] = permutest_max(trial_g_1, trial_g_2, true, 0.05, n, false, inf);
+    [clusters, p_values, t_sums, permutation_distribution ] = permutest(trial_g_1, trial_g_2, true, p_thresh, n, two_sided, inf);
 
     trial_m = mean(trial_g,3);
    

@@ -5,7 +5,7 @@ recollect_data
 %% Calculate Theta phases
 t_min = 0;
 t_max = 600;
-subj_ind = 8;
+subj_ind = 12;
 
 result = results{subj_ind};
 trials = result.trials;

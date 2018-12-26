@@ -26,7 +26,7 @@ col_titles = [];
 marg_h = 0.1; 
 marg_w = [0.1, 0.13];
 gap = 0.02;
-Ca = [-2, 2];
+Ca = [-2.2, 2.2];
 ha = reshape(tight_subplot(n_rows ,n_col,gap,marg_h,marg_w), n_col, n_rows)';
 
 colors = cbrewer('div', 'RdBu', 64);
@@ -44,8 +44,7 @@ for ii = 1:n_rows
 %        imagesc(t,1:size(data,2),data)%,'edgecolor','none');
         
         h = ha(ii,jj);
-        surf(h, args{:})%,'edgecolor','none');
-        caxis(h, [-3 3]);
+        surf(h, args{:})%,'edgecolor','none');        
         % min(datas(:))
         view(h,0,90);
         axis(h,'tight');
@@ -102,7 +101,7 @@ text(0.5, 0.04, 'Time [ms]','HorizontalAlignment' ,'center','VerticalAlignment',
     
 % caxis([0,cmax])
 ch = colorbar(ha(1));
-ch.YTick = round(Ca);
+ch.YTick = Ca;
 ch.Position = [.92 0.27 0.02 0.5];
 ch.Label.String = 'Power [dB]';
 ch.Label.Rotation = -90;

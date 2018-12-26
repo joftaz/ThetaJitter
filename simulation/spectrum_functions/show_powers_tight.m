@@ -1,4 +1,4 @@
-function show_powers_tight(t, freqs, datas, n_col, fig_title, colorbar_title, overlap_data, subject_names, title_y, col_titles, gap,  marg_h, marg_w)
+function [varargout] = show_powers_tight(t, freqs, datas, n_col, fig_title, colorbar_title, overlap_data, subject_names, title_y, col_titles, gap,  marg_h, marg_w)
 
 
 n_subjects = size(datas,3);
@@ -107,4 +107,8 @@ c = colorbar(ha(1));
 % caxis([0,cmax])
 title(c,colorbar_title);
 c.Position = [.95 0.3 0.02 0.5];
+
+if nargout > 0
+   varargout = {ha};
+end
 end

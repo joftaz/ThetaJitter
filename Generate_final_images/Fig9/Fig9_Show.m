@@ -33,11 +33,12 @@ title 'Theta Power'
 %% power
 subplot(2,2,3)
 show_perm_results(squeeze(total_powers(:,:,:,:)),inds_left,inds_right,u,t,freqs,[],[],true)
-
 axis square
 axis tight
 xlabel 'Time [ms]'
 ylabel 'frequncy [Hz]'
+set(gca,'YMinorTick','off')
+title 'Total Power'
 
 ch = colorbar;
 Ca = [-1.0 1.0];
