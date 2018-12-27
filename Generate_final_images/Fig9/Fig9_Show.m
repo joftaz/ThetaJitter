@@ -1,5 +1,5 @@
 %% 
-fig_path = fileparts(mfilename('fullpath'));
+% fig_path = fileparts(mfilename('fullpath'));
 load([fig_path '/' 'Fig9.mat']);
 
 %% colors
@@ -50,14 +50,14 @@ ch.Label.Rotation = -90;
 
 %% R statistic
 subplot(2,2,4)
-show_perm_results( squeeze(theta_phases_r(:,:,:)),inds_left,inds_right,u,t,freqs,[],colors2,true)
+show_perm_results( squeeze(theta_phases_r(:,:,:)),inds_right,inds_left,u,t,freqs,[],colors2,false,1e5)
 
 axis square
 axis tight
 xlabel 'Time [ms]'
 ylabel 'jitter [rad]'
 
-title 'Mean Phase Coherence'
+title 'Inter Trial Phase Coherence'
 
 %% save fig
 fig_path = fileparts(mfilename('fullpath'));
