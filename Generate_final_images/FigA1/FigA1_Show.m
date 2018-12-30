@@ -39,11 +39,11 @@ H(4) = shadedErrorBar(ratio_windows*100, tot_diff_n, {@mean, ci, true}, {'-', 'C
 % title 'total spectral power for different 12 repetitions with 100 trials each'
 % title 'total spectral power for different window variations'
 
-xlabel 'waveform length ration'
+xlabel 'waveform length ratio'
 xtickformat('%.2g\\\%')
 ylabel 'total spectral power [Au]'
 % strlegend = {'ERP', 'total', 'non-phased-locked', 'phase-locked'};
-strlegend = {'total', 'non-phase-locked', 'phase-locked'};
+strlegend = {'total', 'non-time-locked', 'time-locked'};
 % legend([H.mainLine], strlegend, 'Location', 'BestOutside')
 
 grid on

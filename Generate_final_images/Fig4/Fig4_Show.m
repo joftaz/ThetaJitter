@@ -35,7 +35,7 @@ H(4) = shadedErrorBar(ratio_jitters, tot_diff_n, {@mean, ci, true}, {'-', 'Color
 xlabel 'jitter ratio'
 ylabel 'total spectral power [Au]'
 % strlegend = {'ERP', 'total', 'non-phased-locked', 'phase-locked'};
-strlegend = {'total', 'non-phase-locked', 'phase-locked'};
+strlegend = {'total', 'non-time-locked', 'time-locked'};
 legend([H.mainLine], strlegend, 'Location', 'Best')
 
 grid on
